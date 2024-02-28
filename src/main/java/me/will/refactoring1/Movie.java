@@ -29,20 +29,6 @@ public class Movie {
         return _priceCode;
     }
 
-    public static void main(String[] args) {
-        Movie theMatrix = new Movie("The Matrix", REGULAR);
-        Movie iceAge = new Movie("Ice Age", CHILDRENS);
-        Movie oppenheimer = new Movie("Oppenheimer", NEW_RELEASE);
-        Rental rental1 = new Rental(theMatrix, 5);
-        Rental rental2 = new Rental(iceAge, 5);
-        Rental rental3 = new Rental(oppenheimer, 5);
-        Customer bob = new Customer("Bob");
-        bob.addRental(rental1);
-        bob.addRental(rental2);
-        bob.addRental(rental3);
-        System.out.println(bob.statement());
-    }
-
 }
 
 class Rental {
