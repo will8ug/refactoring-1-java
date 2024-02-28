@@ -93,11 +93,7 @@ class Customer {
         String result = "Rental Record for " + getName() + "\n";
 
         while (rentals.hasMoreElements()) {
-            double thisAmount = 0;
             Rental each = rentals.nextElement();
-
-            // determine amounts for each line
-            thisAmount = each.getCharge();
 
             // add frequent renter points
             frequentRenterPoints++;
@@ -107,8 +103,8 @@ class Customer {
             }
 
             // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount + "\n";
-            totalAmount += thisAmount;
+            result += "\t" + each.getMovie().getTitle() + "\t" + each.getCharge() + "\n";
+            totalAmount += each.getCharge();
         }
 
         // add footer lines
