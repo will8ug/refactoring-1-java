@@ -96,11 +96,9 @@ class Customer {
     }
 
     public String statement() {
-        Enumeration<Rental> rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
 
-        while (rentals.hasMoreElements()) {
-            Rental each = rentals.nextElement();
+        for (Rental each : _rentals) {
             // show figures for this rental
             result += "\t" + each.getMovie().getTitle() + "\t" + each.getCharge() + "\n";
         }
