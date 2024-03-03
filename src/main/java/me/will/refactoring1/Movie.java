@@ -1,6 +1,5 @@
 package me.will.refactoring1;
 
-import java.util.Enumeration;
 import java.util.Vector;
 
 public class Movie {
@@ -29,6 +28,28 @@ public class Movie {
         return _priceCode;
     }
 
+    public double getCharge(int daysRented) {
+        double result = 0;
+        switch (getPriceCode()) {
+            case Movie.REGULAR -> {
+                result += 2;
+                if (daysRented > 2) {
+                    result += (daysRented - 2) * 1.5;
+                }
+            }
+
+            case Movie.NEW_RELEASE -> result += daysRented * 3;
+
+            case Movie.CHILDRENS -> {
+                result += 1.5;
+                if (daysRented > 3) {
+                    result += (daysRented - 3) * 1.5;
+                }
+            }
+        }
+        return result;
+    }
+
 }
 
 class Rental {
@@ -41,25 +62,7 @@ class Rental {
     }
 
     public double getCharge() {
-        double result = 0;
-        switch (getMovie().getPriceCode()) {
-            case Movie.REGULAR -> {
-                result += 2;
-                if (getDaysRented() > 2) {
-                    result += (getDaysRented() - 2) * 1.5;
-                }
-            }
-
-            case Movie.NEW_RELEASE -> result += getDaysRented() * 3;
-
-            case Movie.CHILDRENS -> {
-                result += 1.5;
-                if (getDaysRented() > 3) {
-                    result += (getDaysRented() - 3) * 1.5;
-                }
-            }
-        }
-        return result;
+        return _movie.getCharge(_daysRented);
     }
 
     public int getFrequentRenterPoints() {
