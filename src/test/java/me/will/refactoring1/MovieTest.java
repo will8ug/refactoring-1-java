@@ -127,4 +127,58 @@ public class MovieTest {
         assertTrue(statement.contains("Amount owed is 6.0"));
         assertTrue(statement.contains("You earned 2 frequent renter points"));
     }
+
+    @Test
+    public void testHtmlStatement_3Rentals_1Day() {
+        Rental rental1 = new Rental(theMatrix, 1);
+        Rental rental2 = new Rental(iceAge, 1);
+        Rental rental3 = new Rental(oppenheimer, 1);
+        bob.addRental(rental1);
+        bob.addRental(rental2);
+        bob.addRental(rental3);
+
+        String htmlStatement = bob.htmlStatement();
+        assertNotNull(htmlStatement);
+        System.out.println(htmlStatement);
+
+        assertTrue(htmlStatement.contains("Rentals for <em>Bob</em>"));
+        assertTrue(htmlStatement.contains("The Matrix: 2.0"));
+        assertTrue(htmlStatement.contains("Ice Age: 1.5"));
+        assertTrue(htmlStatement.contains("Oppenheimer: 3.0"));
+        assertTrue(htmlStatement.contains("You owe <em>6.5</em>"));
+        assertTrue(htmlStatement.contains("you earned <em>3</em> frequent renter points"));
+    }
+
+    @Test
+    public void testHtmlStatement_OneRegularRental_1Day() {
+        Rental rental = new Rental(theMatrix, 1);
+        bob.addRental(rental);
+
+        String htmlStatement = bob.htmlStatement();
+        assertTrue(htmlStatement.contains("The Matrix: 2.0"));
+        assertTrue(htmlStatement.contains("You owe <em>2.0</em>"));
+        assertTrue(htmlStatement.contains("you earned <em>1</em> frequent renter points"));
+    }
+
+    @Test
+    public void testHtmlStatement_OneChildrenRental_1Day() {
+        Rental rental = new Rental(iceAge, 1);
+        bob.addRental(rental);
+
+        String htmlStatement = bob.htmlStatement();
+        assertTrue(htmlStatement.contains("Ice Age: 1.5"));
+        assertTrue(htmlStatement.contains("You owe <em>1.5</em>"));
+        assertTrue(htmlStatement.contains("you earned <em>1</em> frequent renter points"));
+    }
+
+    @Test
+    public void testHtmlStatement_OneNewReleaseRental_1Day() {
+        Rental rental = new Rental(oppenheimer, 1);
+        bob.addRental(rental);
+
+        String htmlStatement = bob.htmlStatement();
+        assertTrue(htmlStatement.contains("Oppenheimer: 3.0"));
+        assertTrue(htmlStatement.contains("You owe <em>3.0</em>"));
+        assertTrue(htmlStatement.contains("you earned <em>1</em> frequent renter points"));
+    }
 }

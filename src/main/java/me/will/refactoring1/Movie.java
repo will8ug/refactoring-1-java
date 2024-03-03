@@ -109,6 +109,20 @@ class Customer {
         return result;
     }
 
+    public String htmlStatement() {
+        String result = "<h1>Rentals for <em>" + getName() + "</em></h1><p>\n";
+
+        for (Rental each : _rentals) {
+            // show figures for this rental
+            result += each.getMovie().getTitle() + ": " + each.getCharge() + "<br>\n";
+        }
+
+        // add footer lines
+        result += "<p>You owe <em>" + getTotalCharge() + "</em><p>\n";
+        result += "On this rental you earned <em>" + getTotalFrequentRenterPoints() + "</em> frequent renter points<p>";
+        return result;
+    }
+
     private double getTotalCharge() {
         double result = 0;
         for (Rental each : _rentals) {
