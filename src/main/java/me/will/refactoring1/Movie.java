@@ -9,11 +9,11 @@ public class Movie {
 
     private String _title;
 
-    private int _priceCode;
+    private Price _price;
 
     public Movie(String title, int priceCode) {
         _title = title;
-        _priceCode = priceCode;
+        setPriceCode(priceCode);
     }
 
     public String getTitle() {
@@ -21,11 +21,16 @@ public class Movie {
     }
 
     public void setPriceCode(int arg) {
-        _priceCode = arg;
+        switch (arg) {
+            case REGULAR -> _price = new RegularPrice();
+            case CHILDRENS -> _price = new ChildrensPrice();
+            case NEW_RELEASE -> _price = new NewReleasePrice();
+            default -> throw new IllegalArgumentException("Incorrect price code");
+        }
     }
 
     public int getPriceCode() {
-        return _priceCode;
+        return _price.getPriceCode();
     }
 
     public double getCharge(int daysRented) {
@@ -145,4 +150,29 @@ class Customer {
         return result;
     }
 
+}
+
+abstract class Price {
+    abstract int getPriceCode();
+}
+
+class ChildrensPrice extends Price {
+    @Override
+    int getPriceCode() {
+        return Movie.CHILDRENS;
+    }
+}
+
+class NewReleasePrice extends Price {
+    @Override
+    int getPriceCode() {
+        return Movie.NEW_RELEASE;
+    }
+}
+
+class RegularPrice extends Price {
+    @Override
+    int getPriceCode() {
+        return Movie.REGULAR;
+    }
 }
