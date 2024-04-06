@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'oracle'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean package
+    - name: Generate JaCoCo badge
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        badges-directory: badges
+        coverage-badge-filename: instructions.svg
+        coverage-label: 'Coverage:instructions'
+        generate-branches-badge: true
+        branches-badge-filename: branches.svg
+        branches-label: 'Coverage:branches'
+        on-missing-report: quiet
+    - name: Upload coverage badge
+      if: ${{ hashFiles('badges') != '' }}
+      uses: peaceiris/actions-gh-pages@v3
+      continue-on-error: true
+      with:
+        deploy_key: ${{ secrets.GH_PAGES_DEPLOY_KEY }}
+        external_repository: will8ug/will8ug.github.io
+        publish_dir: ./badges
+        publish_branch: main
+        destination_dir: refactoring-1-java/badges
