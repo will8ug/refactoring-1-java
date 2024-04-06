@@ -1,13 +1,13 @@
 package me.will.refactoring1;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static me.will.refactoring1.Movie.REGULAR;
 import static me.will.refactoring1.Movie.CHILDRENS;
 import static me.will.refactoring1.Movie.NEW_RELEASE;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class MovieTest {
     private final Movie theMatrix = new Movie("The Matrix", REGULAR);
@@ -16,7 +16,7 @@ public class MovieTest {
 
     private Customer bob;
 
-    @BeforeEach
+    @Before
     public void beforeEach() {
         bob = new Customer("Bob");
     }
