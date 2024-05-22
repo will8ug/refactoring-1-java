@@ -9,7 +9,7 @@ import static me.will.refactoring1.Movie.NEW_RELEASE;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class MovieTest {
+public class CustomerTest {
     private final Movie theMatrix = new Movie("The Matrix", REGULAR);
     private final Movie iceAge = new Movie("Ice Age", CHILDRENS);
     private final Movie oppenheimer = new Movie("Oppenheimer", NEW_RELEASE);
