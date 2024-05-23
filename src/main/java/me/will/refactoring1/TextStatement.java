@@ -2,16 +2,30 @@ package me.will.refactoring1;
 
 public class TextStatement extends Statement {
     public String value(Customer customer) {
-        String result = "Rental Record for " + customer.getName() + "\n";
+        String result = headerString(customer);
 
         for (Rental each : customer.getRentals()) {
-            // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + each.getCharge() + "\n";
+            result += eachRentalString(each);
         }
 
-        // add footer lines
-        result += "Amount owed is " + customer.getTotalCharge() + "\n";
-        result += "You earned " + customer.getTotalFrequentRenterPoints() + " frequent renter points";
+        result += footerString(customer);
         return result;
+    }
+
+    private String footerString(Customer customer) {
+        return "Amount owed is " +
+                customer.getTotalCharge() +
+                "\n" +
+                "You earned " +
+                customer.getTotalFrequentRenterPoints() +
+                " frequent renter points";
+    }
+
+    private String eachRentalString(Rental each) {
+        return "\t" + each.getMovie().getTitle() + "\t" + each.getCharge() + "\n";
+    }
+
+    private String headerString(Customer customer) {
+        return "Rental Record for " + customer.getName() + "\n";
     }
 }
